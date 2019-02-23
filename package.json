@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bugs181/firearm.git"
+    "url": "git+https://github.com/lopugit/firearm.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bugs181/firearm/issues"
+    "url": "https://github.com/lopugit/firearm/issues"
   },
-  "homepage": "https://github.com/bugs181/firearm#readme"
+  "homepage": "https://github.com/lopugit/firearm#readme"
 }
