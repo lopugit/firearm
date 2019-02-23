@@ -1,6 +1,6 @@
 {
   "name": "firearm",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative syntax, promise support, utility modules, and easy Gun adapter events.",
   "main": "build/index.js",
   "directories": {
