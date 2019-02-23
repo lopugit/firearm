@@ -1,6 +1,6 @@
 {
   "name": "firearm",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative syntax, promise support, utility modules, and easy Gun adapter events.",
   "main": "build/index.js",
   "directories": {
@@ -13,10 +13,10 @@
     "commit": "git add . ; git commit -m 'did I do that?'",
     "push": "npm run commit ; git push origin dev",
     "pull": "git pull origin dev"
-	},
-	"pre-push": [
-		"build"
-	],
+  },
+  "pre-push": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lopugit/firearm.git"
@@ -29,5 +29,8 @@
   "homepage": "https://github.com/lopugit/firearm#readme",
   "devDependencies": {
     "pre-push": "^0.1.1"
+  },
+  "dependencies": {
+    "gun": "^0.9.9999991"
   }
 }
