@@ -3,7 +3,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gun/examples/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
-    <script src="bullet.js"></script>
+    <script src="firearm.js"></script>
     <script src="utilities/remove.js"></script>
   </head>
   <body>
@@ -11,18 +11,18 @@
       <h1>Try it out!</h1>
 
       <script>
-        var bullet = new Bullet()
+        var firearm = new Firearm()
 
-        bullet.extend(remove) // The important bit
+        firearm.extend(remove) // The important bit
 
         // https://github.com/tc39/proposal-top-level-await
         async function main() {
 
-          bullet.cats.sparky = { color: 'orange', name: 'Sparky', type: { genus: 'kitty' } }
-          bullet.cats.howie = { color: 'white', name: 'Howie' }
+          firearm.cats.sparky = { color: 'orange', name: 'Sparky', type: { genus: 'kitty' } }
+          firearm.cats.howie = { color: 'white', name: 'Howie' }
 
-          //bullet.cats.sparky.remove()
-          bullet.cats.remove()
+          //firearm.cats.sparky.remove()
+          firearm.cats.remove()
 
         }
 

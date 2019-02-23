@@ -1,35 +1,41 @@
 'use strict'
 
-class Bullet {
-  constructor(gun, opts) {
+class Firearm {
+  constructor({gun, Gun, opts}) {
     this.gun = gun
     this.Gun = (typeof window !== 'undefined') ? window.Gun : require('gun/gun')
-
-    // If we don't pass gun instance, then see if it's available from window or file - use Bullet's args to create a new gun instance.
-    /*const hasGun = (gun && gun.chain) ? true : false
-    if (!hasGun)
-      this.gun = this.Gun(...arguments)
-    */
-
-    this._ctx = null
-    this._ctxVal = null
-    this._ready = true
-    this._proxyEnable = true
-
-    // Immutability is an opt-in feature. use: new Bullet(gun, { immutable: true })
-    this.immutable = (opts && opts.immutable) ? true : false
-
-    const that = this
-    this.Gun.on('opt', function(context) {
-      that._registerContext = context
-      this.to.next(context)
-    })
-    this.gun = this.Gun(...arguments)
-
-    this.mutate = this.mutate.bind(this)
-    this.extend = this.extend.bind(this)
-
-    return new Proxy(this.gun, bulletProxy(this))
+		if(!Gun){
+			let err = {
+				err: 'no gun class supplied'
+			}
+			return err
+		} else {
+			// If we don't pass gun instance, then see if it's available from window or file - use Firearm's args to create a new gun instance.
+			/*const hasGun = (gun && gun.chain) ? true : false
+			if (!hasGun)
+				this.gun = this.Gun(...arguments)
+			*/
+	
+			this._ctx = null
+			this._ctxVal = null
+			this._ready = true
+			this._proxyEnable = true
+	
+			// Immutability is an opt-in feature. use: new Firearm(gun, { immutable: true })
+			this.immutable = (opts && opts.immutable) ? true : false
+	
+			const that = this
+			this.Gun.on('opt', function(context) {
+				that._registerContext = context
+				this.to.next(context)
+			})
+			this.gun = this.Gun(...arguments)
+	
+			this.mutate = this.mutate.bind(this)
+			this.extend = this.extend.bind(this)
+	
+			return new Proxy(this.gun, firearmProxy(this))
+		}
   }
 
   get value() {
@@ -39,7 +45,7 @@ class Bullet {
 
       this._ctx.once(data => {
         let timer = setInterval(() => {
-          // Wait until bullet is ready (pending .put results)
+          // Wait until firearm is ready (pending .put results)
           if (this._ready) {
             resolve(data)
             clearInterval(timer)
@@ -50,7 +56,7 @@ class Bullet {
   }
 
   get events() {
-    // Example use: bullet.events.on('get')
+    // Example use: firearm.events.on('get')
     return this._registerContext
   }
 
@@ -65,7 +71,7 @@ class Bullet {
     this._proxyEnable = false
     if (typeof cls === 'object')
       if (!Array.isArray(clss))
-        throw new Error('bullet.extends() only supports a single utility or an array of utilities')
+        throw new Error('firearm.extends() only supports a single utility or an array of utilities')
       else
         clss = [clss]
     else
@@ -91,7 +97,7 @@ class Bullet {
 }
 
 
-function bulletProxy(base) {
+function firearmProxy(base) {
   return {
     get (target, prop, receiver) {
       // Return any class methods/props
@@ -103,11 +109,11 @@ function bulletProxy(base) {
       }
 
       // Proxy all other requests as chainables
-      if (base[prop]) // Method exists in Bullet
+      if (base[prop]) // Method exists in Firearm
         return base[prop]
 
       // Method does not exist, is a chainable
-      base._ctx = new Proxy(target.get(prop), bulletProxy(base))
+      base._ctx = new Proxy(target.get(prop), firearmProxy(base))
       return base._ctx
     },
 
@@ -132,5 +138,6 @@ function bulletProxy(base) {
 }
 
 // If environment is not browser, export it (for node compatibility)
-if (typeof window === 'undefined')
-  module.exports = Bullet
+// if (typeof window === 'undefined')
+module.exports = Firearm
+

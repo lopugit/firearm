@@ -3,7 +3,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gun/examples/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
-    <script src="bullet.js"></script>
+    <script src="firearm.js"></script>
   </head>
   <body>
     <center>
@@ -11,12 +11,12 @@
 
       <script>
         var gun = Gun()
-        var bullet = new Bullet(gun) // Bullet() || Bullet(gun) || Bullet(['peer])
+        var firearm = new Firearm(gun) // Firearm() || Firearm(gun) || Firearm(['peer])
 
         // https://github.com/tc39/proposal-top-level-await
         async function main() {
-          bullet.Mark.name = 'Mark'
-          console.log( await bullet.Mark.value )
+          firearm.Mark.name = 'Mark'
+          console.log( await firearm.Mark.value )
         }
 
         main()

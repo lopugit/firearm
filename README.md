@@ -1,4 +1,4 @@
-# bullet
+# firearm
 Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative syntax, promise support, utility modules, and easy Gun adapter events.
 
 # Rewriting Gun docs: #
@@ -16,16 +16,16 @@ Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative synt
       console.log("update:", data);
     });
 
-## With Bullet: ##
+## With Firearm: ##
 
-    var bullet = new Bullet()
+    var firearm = new Firearm()
 
-    bullet.mark = {
+    firearm.mark = {
       name: "Mark",
       email: "mark@gunDB.io",
     }
 
-    bullet.mark.on(data => {
+    firearm.mark.on(data => {
       console.log("update:", data);
     })
 
@@ -61,45 +61,45 @@ Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative synt
     // live update the table!
     gun.get('list').set({type: "cucumber", goal: "scare cat"});
 
-## With Bullet: ##
+## With Firearm: ##
 
     var cat = { name: 'Fluffy', species: 'kitty' }
     var mark = { boss: cat }
     cat.slave = mark
 
     // partial updates merge with existing data!
-    bullet.mark = mark
+    firearm.mark = mark
 
     // access the data as if it is a document.
-    let marksBoss = await bullet.mark.boss.name.value
+    let marksBoss = await firearm.mark.boss.name.value
     console.log("Mark's boss is", marksBoss)
 
     // add both of them to a table!
-    bullet.list.set(bullet.mark.boss)
-    bullet.list.set(bullet.mark)
+    firearm.list.set(firearm.mark.boss)
+    firearm.list.set(firearm.mark)
 
     // grab each item once from the table, continuously:
-    bullet.list.map().once(data => {
+    firearm.list.map().once(data => {
       console.log("Item:", data)
     })
 
     // live update the table!
-    bullet.list.set({ type: "cucumber", goal: "scare cat" })
+    firearm.list.set({ type: "cucumber", goal: "scare cat" })
 
 # How is this possible? #
-It's simple really. Bullet wraps the Gun instance with a Proxy. Each property lookup (using dot notation or bracket) calls a `gun.get()` and returns the Proxy to be used for chaining. Any call to `bullet.value` will return a promise getter of `gun.once()`.
+It's simple really. Firearm wraps the Gun instance with a Proxy. Each property lookup (using dot notation or bracket) calls a `gun.get()` and returns the Proxy to be used for chaining. Any call to `firearm.value` will return a promise getter of `gun.once()`.
 
 # Utilities: #
-- `.value` - Promise getter for `.once()`; `let cats = await bullet.cats.value`
-- `.remove()` - `bullet.cats.remove()`
+- `.value` - Promise getter for `.once()`; `let cats = await firearm.cats.value`
+- `.remove()` - `firearm.cats.remove()`
 
 # Writing your own Gun adapter, made easy: #
-One of the best features of Bullet is to write Gun adapters without having to know too much about the Gun constructor, proper placement to initialize your adapter, and bugs caused by not forwarding the events. Bullet takes care of all of this for you! Simply define a `Function` or `Class`, return an object that contains the events you want to hook into, and the rest is up to you.
+One of the best features of Firearm is to write Gun adapters without having to know too much about the Gun constructor, proper placement to initialize your adapter, and bugs caused by not forwarding the events. Firearm takes care of all of this for you! Simply define a `Function` or `Class`, return an object that contains the events you want to hook into, and the rest is up to you.
 
 Example class:
 
     class gunAdapter {
-      constructor(bullet, opts, context) {
+      constructor(firearm, opts, context) {
         return {
           events : {
             // Storage
@@ -116,7 +116,7 @@ Example class:
 
 Example function:
 
-    function gunAdapter(bullet, opts, context) {
+    function gunAdapter(firearm, opts, context) {
       return {
         events: { 
           // Storage
@@ -131,30 +131,30 @@ Example function:
     }
 
 To use your adapter, include it in your project then:<br>
-`bullet.extend(gunAdapter)`
+`firearm.extend(gunAdapter)`
 
 # More coming soon! #
-Bullet expects to be a wrapper for other utility functions, offering an easy way to extend either bullet or gun via Proxies or directly. This will allow you to create custom bullet methods for wrapping verbose syntaxes.
+Firearm expects to be a wrapper for other utility functions, offering an easy way to extend either firearm or gun via Proxies or directly. This will allow you to create custom firearm methods for wrapping verbose syntaxes.
 
 Some utility proposals have already emerged, such as handling arrays in a more suitable fashion.
 
-    bullet.cats.sparky = { color: 'orange' }
-    bullet.cats.howie = { color: 'white' }
+    firearm.cats.sparky = { color: 'orange' }
+    firearm.cats.howie = { color: 'white' }
 
-    bullet.mark.cats = [bullet.cats.sparky, bullet.cats.howie]
+    firearm.mark.cats = [firearm.cats.sparky, firearm.cats.howie]
 
 Another utility proposal was RPC
 
     // local
-    bullet.rpc.host('peerName')
-    bullet.rpc.register('procName', function(data) {})
+    firearm.rpc.host('peerName')
+    firearm.rpc.register('procName', function(data) {})
 
     // Remote
-    bullet.rpc.exec('procName', { some: 'data' })
+    firearm.rpc.exec('procName', { some: 'data' })
     // or
-    bullet.rpc.select('peerName').exec('procName')
+    firearm.rpc.select('peerName').exec('procName')
 
 <br>
 
 ## License: ##
-[MIT](https://github.com/bugs181/bullet/blob/master/LICENSE)
+[MIT](https://github.com/bugs181/firearm/blob/master/LICENSE)

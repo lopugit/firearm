@@ -1,9 +1,9 @@
 'use strict'
 
 class remove {
-  constructor(bullet) {
+  constructor(firearm) {
     return function remove(maxDepth) {
-      bullet._ctx.once(props => nullProps(bullet._ctx, props, maxDepth))
+      firearm._ctx.once(props => nullProps(firearm._ctx, props, maxDepth))
     }
 
     function nullProps(context, obj, maxDepth, depth = 0) {
@@ -50,6 +50,6 @@ if (typeof window === 'undefined')
 /*
           if (key === '#') {
             console.log('Get: ', key)
-            bullet._ctx.get(key).once(props => deleteProps(bullet, props))
+            firearm._ctx.get(key).once(props => deleteProps(firearm, props))
           } else
 */

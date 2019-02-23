@@ -1,0 +1,27 @@
+{
+  "name": "firearm",
+  "version": "0.0.12",
+  "description": "Wrapper around [GunDB](https://github.com/amark/gun) to provide alternative syntax, promise support, utility modules, and easy Gun adapter events.",
+  "main": "build/index.js",
+  "directories": {
+		"example": "examples"
+  },
+  "scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build" : "cp src/* build/",
+		"prepublish" : "npm run build",
+		"commit" : "git add . ; git commit -m 'did I do that?'",
+		"push" : "npm run commit ; git push origin master",
+		"pull" : "git pull origin master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugs181/firearm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bugs181/firearm/issues"
+  },
+  "homepage": "https://github.com/bugs181/firearm#readme"
+}
