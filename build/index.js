@@ -1,9 +1,9 @@
 'use strict'
 
 class Firearm {
-  constructor({gun, Gun, opts}) {
+  constructor(gun, opts) {
     this.gun = gun
-    this.Gun = (typeof window !== 'undefined') ? window.Gun : require('gun/gun')
+    this.Gun = (typeof window !== 'undefined') ? window.Gun : (typeof global !== 'undefined') ? global.Gun : require('gun/gun')
 		if(!Gun){
 			let err = {
 				err: 'no gun class supplied'
